@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorial, Sum, Average</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1e0032;
+            font-family: 'Arial', sans-serif;
+            color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px 20px;
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%;
+        }
+
+        .logo a {
+            background-image: url(images/Raiden.png); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: block;
+            height: 90px;
+            width: 90px;
+            text-indent: -999999px;
+            margin-left: 55px;
+            margin-top: 11px;
+        }
+
+        nav {
+            display: flex;
+            margin-left: 15px;
+            margin-top: 9px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav li {
+            margin: 0px 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            background-image: url(images/background.jpg);
+            padding: 10px;
+            border-radius: 15px;
+            z-index: 10;
+            text-align: center;
+            margin-top: 120px;
+        }
+
+        h1 {
+            font-size: 2.0em;
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        input[type="number"] {
+            padding: 15px;
+            font-size: 18px;
+            background: #ffffff;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            width: 80%;
+            color: #000000;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #420447;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #000000;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #8c1bab;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .result-box p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+        }
+        .background {
+             background-image: url(images/6c474341b8f761fbac3eca4e203a0612.jpg);
+             background-size: cover;
+             background-repeat: no-repeat;
+             background-position: center;
+             position: fixed;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             z-index: -1; 
+        }
+        footer {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: aliceblue;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="header">
+        <div class="logo"><a href="index.html">Logo</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container">
+        <h1>Factorial, Sum, Average</h1>
+        <input type="number" id="numberInput" placeholder="Enter a number (N)" min="1">
+        <button onclick="calculate()">Calculate</button>
+
+        <div class="result-box" id="factorialBox">
+            <p><strong>Factorial:</strong> <span id="factorialResult">N/A</span></p>
+        </div>
+
+        <div class="result-box" id="sumBox">
+            <p><strong>Sum:</strong> <span id="sumResult">N/A</span></p>
+        </div>
+
+        <div class="result-box" id="averageBox">
+            <p><strong>Average:</strong> <span id="averageResult">N/A</span></p>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const n = parseInt(document.getElementById("numberInput").value);
+            if (isNaN(n) || n < 1) {
+                alert("Please enter a valid number greater than 0!");
+                return;
+            }
+
+            let factorial = 1;
+            let i = 1;
+            while (i <= n) {
+                factorial *= i;
+                i++;
+            }
+
+            let sum = 0;
+            i = 1;
+            do {
+                sum += i;
+                i++;
+            } while (i <= n);
+
+            let average = sum / n;
+
+            document.getElementById("factorialResult").textContent = factorial;
+            document.getElementById("sumResult").textContent = sum;
+            document.getElementById("averageResult").textContent = average.toFixed(2);
+        }
+    </script>
+</body>
+<footer>AARON VILLEJO</footer>
+</html>
