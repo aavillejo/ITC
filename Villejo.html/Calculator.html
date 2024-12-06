@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Calculator</title>
+    <style>
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px 20px; 
+            position: absolute; 
+            top: 0;
+            left: 0;      
+            width: 100%;
+        }
+
+        .logo a {
+            background-image: url(images/Raiden.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: block;
+            height: 90px;
+            width: 90px;
+            text-indent: -999999px;
+        }
+
+        nav {   
+            margin-left: 60px;
+            margin-top: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        body {
+            background-image: url(images/843224f5efa40a31aea92d48382a9129.jpg);
+            background-size: 100%;
+            margin: 0;
+            padding: 0;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+            color: #ffffff;
+            text-shadow: 0px 4px 10px #000000;
+            text-align: center;
+        }
+
+        .calculator-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 15px;
+            background-image: url(images/OIP\ \(1\).jpg);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7), inset 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .calculator h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 0px 2px 6px #000000;
+        }
+
+        .calculator label {
+            font-size: 1rem;
+            color: #ffffff;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .calculator input {
+            width: 90%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #ffffff;
+            background: #ffffff;
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3), inset 0px 2px 6px rgba(255, 255, 255, 0.1);
+        }
+
+        .calculator input:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0px 0px 10px #000000;
+        }
+
+        .calculator button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #a000c8;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .calculator button:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.6), 0px 0px 20px rgba(157, 66, 255, 1);
+        }
+
+        .calculator p {
+            font-size: 1.2rem;
+            color: #ffd9ff;
+            margin-top: 20px;
+            text-shadow: 0px 2px 4px #571c89;
+        }
+        footer {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: aliceblue;
+            padding: 10px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+    <nav>
+        <ul>
+            <li class="logo"><a href="index.html">Logo</a></li>
+            <li><a href="index.html">Home</a></li>
+        </ul>
+    </nav>
+    <h1>Income Tax Calculator</h1>
+    <div class="calculator-container">
+        <div class="calculator">
+            <h2>Calculate Your Income Tax</h2>
+            <label for="income">Enter Your Annual Income:</label>
+            <input type="number" id="income" placeholder="Enter your income">
+            <button onclick="calculateTax()">Calculate</button>
+            <p id="taxResult"></p>
+        </div>
+    </div>
+
+    <script>
+        function calculateTax() {
+    const incomeInput = document.getElementById('income').value;
+    const income = parseFloat(incomeInput);
+
+    if (isNaN(income) || income < 0) {
+        document.getElementById('taxResult').textContent = "Please enter a valid positive income.";
+        return;
+    }
+
+    let tax = 0;
+
+    if (income <= 250000) {
+        tax = 0;
+    } else if (income <= 500000) {
+        tax = (income - 250000) * 0.05;
+    } else if (income <= 1000000) {
+        tax = (income - 500000) * 0.2 + 12500;
+    } else {
+        tax = (income - 1000000) * 0.3 + 12500 + 100000;
+    }
+
+    document.getElementById('taxResult').textContent = `Your calculated tax is: ₱${tax.toFixed(2)}`;
+}
+    </script>
+</body>
+<footer>AARON VILLEJO
+</footer>
+</html>

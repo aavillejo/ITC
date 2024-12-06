@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Payroll System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #f3f3f3;
+            background-image: url(images/background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background-image: url(images/thumb-1920-1189484.jpg);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.9em;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        label {
+            font-size: 1em;
+            margin-top: 15px;
+            display: block;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 14px;
+            background: #ffffff;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            color: #000000;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #28a745;
+            border: none;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 15px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button.delete {
+            background: #dc3545;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            background: #444;
+            padding: 15px;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1.2em;
+            text-align: left;
+        }
+
+        .employee-list {
+            margin-top: 20px;
+        }
+
+        .employee {
+            background: #555;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .employee span {
+            font-size: 1em;
+        }
+
+        .employee button {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a {
+            background-image: url(images/Raiden.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: block;
+            height: 93px;
+            width: 88px;
+            text-indent: -999999px;
+            margin-left: 52px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin-left: 20px;
+        }
+
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">Raiden</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h1>Payroll System</h1>
+        <form id="payrollForm">
+            <label for="employeeName">Employee Name:</label>
+            <input type="text" id="employeeName" placeholder="Enter employee name" required>
+
+            <label for="hoursWorked">Hours Worked:</label>
+            <input type="number" id="hoursWorked" placeholder="Enter hours worked" required>
+
+            <label for="hourlyRate">Hourly Rate:</label>
+            <input type="number" id="hourlyRate" placeholder="Enter hourly rate" required>
+
+            <label for="taxRate">Tax Rate (%):</label>
+            <input type="number" id="taxRate" placeholder="Enter tax rate" required>
+
+            <button type="button" onclick="addEmployeePayroll()">Add Payroll</button>
+        </form>
+
+        <div class="employee-list" id="employeeList">
+            <!-- Employee details will be added here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const employeeList = [];
+
+        function addEmployeePayroll() {
+            const name = document.getElementById('employeeName').value.trim();
+            const hoursWorked = parseFloat(document.getElementById('hoursWorked').value);
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value);
+            const taxRate = parseFloat(document.getElementById('taxRate').value) / 100;
+
+            if (!name || isNaN(hoursWorked) || isNaN(hourlyRate) || isNaN(taxRate)) {
+                alert('Please enter valid inputs for all fields.');
+                return;
+            }
+
+            const grossPay = hoursWorked * hourlyRate;
+            const taxDeduction = grossPay * taxRate;
+            const netPay = grossPay - taxDeduction;
+
+            const employee = {
+                id: Date.now(),
+                name,
+                grossPay: grossPay.toFixed(2),
+                taxDeduction: taxDeduction.toFixed(2),
+                netPay: netPay.toFixed(2),
+            };
+
+            employeeList.push(employee);
+            renderEmployeeList();
+
+            document.getElementById('payrollForm').reset();
+        }
+
+        function renderEmployeeList() {
+            const employeeListDiv = document.getElementById('employeeList');
+            employeeListDiv.innerHTML = '';
+
+            employeeList.forEach(employee => {
+                const employeeDiv = document.createElement('div');
+                employeeDiv.className = 'employee';
+
+                employeeDiv.innerHTML = `
+                    <span><strong>${employee.name}</strong> - Net Pay: ₱${employee.netPay}</span>
+                    <button class="delete" onclick="deleteEmployee(${employee.id})">Delete</button>
+                `;
+
+                employeeListDiv.appendChild(employeeDiv);
+            });
+        }
+
+        function deleteEmployee(id) {
+            const index = employeeList.findIndex(employee => employee.id === id);
+            if (index !== -1) {
+                employeeList.splice(index, 1);
+                renderEmployeeList();
+            }
+        }
+    </script>
+</body>
+</html>
